@@ -5,18 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public delegate void AttackBehaviour();
-    public AttackBehaviour OnAttack;
+    public delegate void BehaviourEvent(bool value, int number);
+    public BehaviourEvent OnAttack;
+
+    public int PlayerNumber { get; set; }
+
+    private delegate void MoveAction();
 
     // 행동 속도
-    [SerializeField] private float _maxAttackSpeed;
-    [SerializeField] private float _minAttackSpeed;
-    private float _attackSpeed;
+    [SerializeField] private float _maxAttackCoolSpeed;
+    [SerializeField] private float _minAttackCoolSpeed;
+    private float _attackCoolTime;
+    [SerializeField] private float _attackSpeed;
+    private IEnumerator _attackCoolCoroutine;
 
     // 기본 데미지
+    [SerializeField] private Transform _targetPosition;
+    private Vector3 _originalPosition;
     [SerializeField] private float _damage;
 
     // 플레이어
+    [SerializeField] private Collider _stickCollider;
     private Collider _playerCollider;
 
     // UI: 슬라이더
@@ -26,16 +35,21 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         _playerCollider = GetComponent<Collider>();
+
+        _originalPosition = transform.position;
         
         SetRandomSpeed();
 
-        StartCoroutine(EAttackCool());
+        _attackCoolCoroutine = EAttackCool();
+        StartCoroutine(_attackCoolCoroutine);
     }
 
     private void SetRandomSpeed()
     {
-        _attackSpeed = Random.Range(_minAttackSpeed, _maxAttackSpeed);
+        _attackCoolTime = Random.Range(_minAttackCoolSpeed, _maxAttackCoolSpeed);
     }
+
+    #region AttackCoolCoroutine
 
     private IEnumerator EAttackCool()
     {
@@ -45,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
 
         while(true)
         {
-            elapsedTime += Time.deltaTime * _attackSpeed;
+            elapsedTime += Time.deltaTime * _attackCoolTime;
             currentValue = Mathf.Lerp(0, _maxSliderValue, elapsedTime);
             _behaviourSlider.value = currentValue;
 
@@ -61,17 +75,62 @@ public class PlayerAttack : MonoBehaviour
         Attack();
     }
 
+    public void StopAttackCool()
+    {
+        StopCoroutine(_attackCoolCoroutine);
+    }
+
+    public void RestartAttackCool()
+    {
+        StartCoroutine(_attackCoolCoroutine);
+    }
+    #endregion
 
     private void Attack()
     {
         _behaviourSlider.value = 0f;
         PrepareForAttack();
+        StartCoroutine(MoveToPosition(_targetPosition.position, 
+            () =>
+            {
+                StartCoroutine(MoveToPosition(_originalPosition,
+                    () =>
+                    {
+                        OnAttack.Invoke(false, PlayerNumber);
+                        StartCoroutine(_attackCoolCoroutine);
+                        _stickCollider.enabled = false;
+                        _playerCollider.enabled = true;
+                    }
+                    ));
+            }
+            ));
     }
 
     private void PrepareForAttack()
     {
         _playerCollider.enabled = false;
-        OnAttack.Invoke();
+        _stickCollider.enabled = true;
+        OnAttack.Invoke(true, PlayerNumber);
+    }
+
+    private IEnumerator MoveToPosition(Vector3 targetPosition, MoveAction afterMoveAction)
+    {
+        while (true)
+        {
+            Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, _attackSpeed * Time.deltaTime);
+
+            transform.position = newPosition;
+
+            if ((transform.position - targetPosition).sqrMagnitude < 0.001)
+            {
+                transform.position = targetPosition;
+                break;
+            }
+
+            yield return null;
+        }
+
+        afterMoveAction.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)
