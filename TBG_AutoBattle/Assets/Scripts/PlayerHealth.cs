@@ -41,13 +41,11 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator ETakedDamage(float newHp)
     {
-        float elapsedTime = 0f;
         float prevHp = _currentHp;
 
         while (true)
         {
-            elapsedTime += Time.deltaTime * _reducedSpeed;
-            _currentHp = Mathf.Lerp(0, newHp, elapsedTime);
+            _currentHp = Mathf.Lerp(_currentHp, newHp, _reducedSpeed * Time.deltaTime);
 
             if (Mathf.Abs(newHp - _currentHp) < 0.1f)
             {
