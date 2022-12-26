@@ -27,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private float _reducedSpeed = 0.5f;
 
+    [SerializeField] private DamageTextEffect _textEffect;
+
     private void Awake()
     {
         _hpSlider.maxValue = _maxHp;
@@ -36,10 +38,11 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         float newHp = Mathf.Clamp(_currentHp - damage, 0, _maxHp);
-        StartCoroutine(ETakedDamage(newHp));
+        _textEffect.ShowEffect(damage);
+        StartCoroutine(CoTakedDamage(newHp));
     }
 
-    private IEnumerator ETakedDamage(float newHp)
+    private IEnumerator CoTakedDamage(float newHp)
     {
         float prevHp = _currentHp;
 

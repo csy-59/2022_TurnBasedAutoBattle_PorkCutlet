@@ -494,6 +494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _attackSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454633, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -514,6 +518,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 5292475706098233100, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 5292475706994144793, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -670,6 +678,14 @@ PrefabInstance:
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _damage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _attackSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454629, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _reducedSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5292475706098233100, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: m_Camera

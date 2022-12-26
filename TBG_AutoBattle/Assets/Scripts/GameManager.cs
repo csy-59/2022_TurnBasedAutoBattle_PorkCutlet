@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     private PlayerHealth[] _playerHealths;
     private bool _isGameOver;
     
-
     private void Awake()
     {
         _playerAttacks = GetComponentsInChildren<PlayerAttack>();

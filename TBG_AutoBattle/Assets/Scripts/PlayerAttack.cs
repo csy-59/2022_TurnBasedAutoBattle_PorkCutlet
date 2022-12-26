@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
         
         SetRandomSpeed();
 
-        _attackCoolCoroutine = EAttackCool();
+        _attackCoolCoroutine = CoAttackCool();
         StartCoroutine(_attackCoolCoroutine);
     }
 
@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
 
     #region AttackCoolCoroutine
 
-    private IEnumerator EAttackCool()
+    private IEnumerator CoAttackCool()
     {
         _behaviourSlider.value = 0f;
         float elapsedTime = 0f;
@@ -90,13 +90,13 @@ public class PlayerAttack : MonoBehaviour
     {
         _behaviourSlider.value = 0f;
         PrepareForAttack();
-        StartCoroutine(MoveToPosition(_targetPosition.position, 
+        StartCoroutine(CoMoveToPosition(_targetPosition.position, 
             () =>
             {
-                StartCoroutine(MoveToPosition(_originalPosition,
+                StartCoroutine(CoMoveToPosition(_originalPosition,
                     () =>
                     {
-                        _attackCoolCoroutine = EAttackCool();
+                        _attackCoolCoroutine = CoAttackCool();
                         StartCoroutine(_attackCoolCoroutine);
                         OnAttack.Invoke(false, PlayerNumber);
                         _stickCollider.enabled = false;
@@ -114,7 +114,7 @@ public class PlayerAttack : MonoBehaviour
         OnAttack.Invoke(true, PlayerNumber);
     }
 
-    private IEnumerator MoveToPosition(Vector3 targetPosition, MoveAction afterMoveAction)
+    private IEnumerator CoMoveToPosition(Vector3 targetPosition, MoveAction afterMoveAction)
     {
         while (true)
         {
