@@ -5,18 +5,28 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public delegate void AttackBehaviour();
+    public AttackBehaviour OnAttack;
+
     // 행동 속도
     [SerializeField] private float _maxAttackSpeed;
     [SerializeField] private float _minAttackSpeed;
     private float _attackSpeed;
 
-    private Slider _behaviourSlider;
+    // 기본 데미지
+    [SerializeField] private float _damage;
+
+    // 플레이어
+    private Collider _playerCollider;
+
+    // UI: 슬라이더
+    [SerializeField] private Slider _behaviourSlider;
     private float _maxSliderValue = 1f;
 
     private void Awake()
     {
-        _behaviourSlider = GetComponent<Slider>();
-
+        _playerCollider = GetComponent<Collider>();
+        
         SetRandomSpeed();
 
         StartCoroutine(EAttackCool());
@@ -54,12 +64,31 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        Debug.Log("Attack");
         _behaviourSlider.value = 0f;
+        PrepareForAttack();
     }
+
+    private void PrepareForAttack()
+    {
+        _playerCollider.enabled = false;
+        OnAttack.Invoke();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerHealth _otherHealth = other.GetComponent<PlayerHealth>();
+            Debug.Assert(_otherHealth);
+
+            _otherHealth.TakeDamage(_damage);
+        }
+    }
+
 
     private void OnDisable()
     {
         StopAllCoroutines();
+        _behaviourSlider.gameObject.SetActive(false);
     }
 }
