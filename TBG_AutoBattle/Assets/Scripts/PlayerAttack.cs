@@ -96,8 +96,9 @@ public class PlayerAttack : MonoBehaviour
                 StartCoroutine(MoveToPosition(_originalPosition,
                     () =>
                     {
-                        OnAttack.Invoke(false, PlayerNumber);
+                        _attackCoolCoroutine = EAttackCool();
                         StartCoroutine(_attackCoolCoroutine);
+                        OnAttack.Invoke(false, PlayerNumber);
                         _stickCollider.enabled = false;
                         _playerCollider.enabled = true;
                     }
@@ -148,6 +149,5 @@ public class PlayerAttack : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-        _behaviourSlider.gameObject.SetActive(false);
     }
 }

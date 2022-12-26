@@ -47,7 +47,10 @@ public class GameManager : MonoBehaviour
                     _playerAttack.enabled = false;
                 }
             }
-            _playerAttacks[otherNumber].RestartAttackCool();
+            else
+            {
+                _playerAttacks[otherNumber].RestartAttackCool();
+            }
         }
     }
 

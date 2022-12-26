@@ -47,9 +47,9 @@ public class PlayerHealth : MonoBehaviour
         while (true)
         {
             elapsedTime += Time.deltaTime * _reducedSpeed;
-            _currentHp = Mathf.Lerp(prevHp, newHp, elapsedTime);
+            _currentHp = Mathf.Lerp(0, newHp, elapsedTime);
 
-            if (Mathf.Abs(newHp - _currentHp) < 0.01f)
+            if (Mathf.Abs(newHp - _currentHp) < 0.1f)
             {
                 _currentHp = newHp;
                 break;

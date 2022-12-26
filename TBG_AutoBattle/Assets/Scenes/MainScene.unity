@@ -667,6 +667,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _damage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5292475706098233100, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: m_Camera
       value: 

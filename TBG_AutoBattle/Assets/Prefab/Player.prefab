@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpSlider: {fileID: 5292475706239711672}
   _maxHp: 100
-  _reducedSpeed: 2
+  _reducedSpeed: 10
 --- !u!54 &834186139478016679
 Rigidbody:
   m_ObjectHideFlags: 0
