@@ -1,2 +1,2 @@
-# 2022_TurnBasedOutoBattle_PorkCutlet
+# 2022_TurnBasedAutoBattle_PorkCutlet
  
