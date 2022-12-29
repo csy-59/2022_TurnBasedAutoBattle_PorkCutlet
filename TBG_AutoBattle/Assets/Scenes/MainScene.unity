@@ -498,6 +498,14 @@ PrefabInstance:
       propertyPath: _attackSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _skills.Array.data[0]
+      value: 
+      objectReference: {fileID: 911560667}
     - target: {fileID: 5292475705913454629, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _defence
       value: 10
@@ -540,6 +548,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+--- !u!4 &911560662 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 808103390054618921, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+  m_PrefabInstance: {fileID: 911560661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &911560663 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 5292475706084263951, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+  m_PrefabInstance: {fileID: 911560661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &911560664 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5292475705913454632, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+  m_PrefabInstance: {fileID: 911560661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &911560665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1487502790614411247, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+  m_PrefabInstance: {fileID: 911560661}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911560664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7986a465196b594d9865afbad3c6ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &911560666 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 5292475705913454630, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+  m_PrefabInstance: {fileID: 911560661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &911560667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911560664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fc4b2b515856e4d98e307ce0944a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxTurn: 2
+  _playerCollider: {fileID: 911560666}
+  _stickCollider: {fileID: 911560663}
+  _playerMovement: {fileID: 911560665}
+  _targetPosition: {fileID: 911560662}
+  _damagePercentage: 1.3
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,6 +744,22 @@ PrefabInstance:
       propertyPath: _attackSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _maxActCoolSpeed
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _minActCoolSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _skills.Array.data[0]
+      value: 
+      objectReference: {fileID: 5292475705524468608}
     - target: {fileID: 5292475705913454629, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _defence
       value: 10
@@ -713,3 +786,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+--- !u!1 &5292475705524468607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5292475705913454632, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+  m_PrefabInstance: {fileID: 5292475705524468606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5292475705524468608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292475705524468607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19a1529df16ff54d8b6bcce9e7a1c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxTurn: 3
+  _healPersentage: 0.2

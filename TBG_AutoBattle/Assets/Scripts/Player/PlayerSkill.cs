@@ -10,10 +10,14 @@ public abstract class PlayerSkill : MonoBehaviour
     protected PlayerAct _playerAct;
     protected PlayerHealth _playerHealth;
 
+    [SerializeField] private int _maxTurn;
     protected int _turn;
 
     protected void Init()
     {
+        ResetTurn();
+        OnUseSkill.AddListener(ResetTurn);
+
         _playerAct = GetComponent<PlayerAct>();
         _playerAct.OnAct.AddListener(() => 
         { 
@@ -26,6 +30,18 @@ public abstract class PlayerSkill : MonoBehaviour
         });
 
         _playerHealth = GetComponent<PlayerHealth>();
+    }
+
+    private void ResetTurn()
+    {
+        _turn = _maxTurn;
+    }
+    private void ResetTurn(bool value)
+    {
+        if(!value)
+        {
+            ResetTurn();
+        }
     }
 
     protected abstract void UseSkill();

@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 5292475705913454630}
   - component: {fileID: 5292475705913454626}
   - component: {fileID: 5292475705913454629}
+  - component: {fileID: 1487502790614411247}
   - component: {fileID: 834186139478016679}
   m_Layer: 0
   m_Name: PlayerBody
@@ -253,13 +254,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a768f2f58fbd6e04ab62f73172b3c073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxAttackCoolSpeed: 0.8
-  _minAttackCoolSpeed: 0.3
-  _attackSpeed: 2
-  _targetPosition: {fileID: 808103390054618921}
+  _maxActCoolSpeed: 0.8
+  _minActCoolSpeed: 0.3
   _damage: 20
-  _stickCollider: {fileID: 5292475706084263951}
   _behaviourSlider: {fileID: 5292475707343700978}
+  _skills: []
 --- !u!114 &5292475705913454629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,10 +271,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e06d0816bb0df74ba277bf00cb7bb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpSlider: {fileID: 5292475706239711672}
   _maxHp: 100
-  _reducedSpeed: 10
+  _defence: 0
+  _hpSlider: {fileID: 5292475706239711672}
+  _uiChangeSpeed: 0.5
   _textEffect: {fileID: 9048727180877013823}
+--- !u!114 &1487502790614411247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292475705913454632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7986a465196b594d9865afbad3c6ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 5
 --- !u!54 &834186139478016679
 Rigidbody:
   m_ObjectHideFlags: 0

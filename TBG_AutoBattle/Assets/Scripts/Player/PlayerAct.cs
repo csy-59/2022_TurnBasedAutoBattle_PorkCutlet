@@ -29,14 +29,6 @@ public class PlayerAct : MonoBehaviour
     [SerializeField] private PlayerSkill[] _skills;
     private int _skillCount;
 
-
-    // 플레이어
-    [SerializeField] private Collider _stickCollider;
-    private Collider _playerCollider;
-    [SerializeField] private Transform _targetPosition;
-    private Vector3 _originalPosition;
-    [SerializeField] private float _moveSpeed;
-
     private void Awake()
     {
         SetRandomSpeed();
@@ -106,8 +98,8 @@ public class PlayerAct : MonoBehaviour
             yield return null;
         }
 
+        _behaviourSlider.value = 0f;
         OnAct.Invoke();
-        //Attack();
     }
 
     public void StopAttackCool()
@@ -120,65 +112,6 @@ public class PlayerAct : MonoBehaviour
         StartCoroutine(_actCoolCoroutine);
     }
     #endregion
-
-    private void Attack()
-    {
-        _behaviourSlider.value = 0f;
-        PrepareForAttack();
-        StartCoroutine(CoMoveToPosition(_targetPosition.position, 
-            () =>
-            {
-                StartCoroutine(CoMoveToPosition(_originalPosition,
-                    () =>
-                    {
-                        _actCoolCoroutine = CoAttackCool();
-                        StartCoroutine(_actCoolCoroutine);
-                        OnBehaviour.Invoke(false, PlayerNumber);
-                        _stickCollider.enabled = false;
-                        _playerCollider.enabled = true;
-                    }
-                    ));
-            }
-            ));
-    }
-
-    private void PrepareForAttack()
-    {
-        _playerCollider.enabled = false;
-        _stickCollider.enabled = true;
-        OnBehaviour.Invoke(true, PlayerNumber);
-    }
-
-    private IEnumerator CoMoveToPosition(Vector3 targetPosition, UnityAction afterMoveAction)
-    {
-        while (true)
-        {
-            Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, _moveSpeed * Time.deltaTime);
-
-            transform.position = newPosition;
-
-            if ((transform.position - targetPosition).sqrMagnitude < 0.001)
-            {
-                transform.position = targetPosition;
-                break;
-            }
-
-            yield return null;
-        }
-
-        afterMoveAction.Invoke();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            PlayerHealth _otherHealth = other.GetComponent<PlayerHealth>();
-            Debug.Assert(_otherHealth);
-
-            _otherHealth.TakeDamage(_damage);
-        }
-    }
 
     private void OnDisable()
     {
