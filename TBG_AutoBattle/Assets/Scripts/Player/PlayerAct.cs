@@ -7,15 +7,12 @@ using UnityEngine.UI;
 public class PlayerAct : MonoBehaviour
 {
     public UnityEvent<bool, int> OnAttack { get; set; } = new UnityEvent<bool, int>();
+    public int PlayerNumber { get; set; }
 
     public UnityEvent OnAct { get; set; } = new UnityEvent();
 
-    public int PlayerNumber { get; set; }
-
-    private delegate void MoveAction();
-
     // ≈œ º”µµ
-    [SerializeField] private float _maxActCoolSpeed§∫;
+    [SerializeField] private float _maxActCoolSpeed;
     [SerializeField] private float _minActCoolSpeed;
     private float _actCoolTime;
 
@@ -50,7 +47,7 @@ public class PlayerAct : MonoBehaviour
 
     private void SetRandomSpeed()
     {
-        _actCoolTime = Random.Range(_minActCoolSpeed, _maxActCoolSpeed§∫);
+        _actCoolTime = Random.Range(_minActCoolSpeed, _maxActCoolSpeed);
     }
 
     #region AttackCoolCoroutine
@@ -118,7 +115,7 @@ public class PlayerAct : MonoBehaviour
         OnAttack.Invoke(true, PlayerNumber);
     }
 
-    private IEnumerator CoMoveToPosition(Vector3 targetPosition, MoveAction afterMoveAction)
+    private IEnumerator CoMoveToPosition(Vector3 targetPosition, UnityAction afterMoveAction)
     {
         while (true)
         {

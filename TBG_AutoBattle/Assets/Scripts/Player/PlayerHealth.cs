@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour
     public UnityEvent OnDeath { get; set; } = new UnityEvent();
 
     [Header("=== Basic State ===")]
-    [SerializeField] private float _maxHp;
-    [SerializeField] private float _defence;
+    [SerializeField] private int _maxHp;
+    [SerializeField] private int _defence;
     private float _hp;
     private float _currentHp
     {
