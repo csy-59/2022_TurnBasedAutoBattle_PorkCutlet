@@ -42,14 +42,14 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         float newHp = Mathf.Clamp(_currentHp + _defence - damage, 0, _maxHp);
-        _textEffect.ShowEffect($"-{damage}");
+        _textEffect.ShowEffect($"-{_currentHp - newHp}");
         StartCoroutine(CoChangeHp(newHp));
     }
 
     public void RestoreHp(float restoreHp, UnityAction onHpRestore)
     {
         float newHp = Mathf.Clamp(_currentHp + restoreHp, 0, _maxHp);
-        _textEffect.ShowEffect($"+{restoreHp}");
+        _textEffect.ShowEffect($"+{newHp - _currentHp}");
         StartCoroutine(CoChangeHp(newHp, onHpRestore));
     }
 
