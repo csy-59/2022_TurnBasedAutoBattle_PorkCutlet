@@ -20,7 +20,6 @@ public class PlayerHealth : MonoBehaviour
         set
         {
             _hp = value;
-            _hpSlider.value = value;
             if (_hp == 0)
             {
                 OnDeath.Invoke();
@@ -36,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         _hpSlider.maxValue = _maxHp;
+        _hpSlider.value = _maxHp;
         _currentHp = _maxHp;
     }
 
@@ -55,15 +55,17 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator CoChangeHp(float newHp, UnityAction onHpRestore = null)
     {
-        float prevHp = _currentHp;
+        float hp = _currentHp;
+        _currentHp = newHp;
 
         while (true)
         {
-            _currentHp = Mathf.Lerp(_currentHp, newHp, _uiChangeSpeed * Time.deltaTime);
+            hp = Mathf.Lerp(hp, newHp, _uiChangeSpeed * Time.deltaTime);
+            _hpSlider.value = hp;
 
-            if (Mathf.Abs(newHp - _currentHp) < 0.1f)
+            if (Mathf.Abs(newHp - hp) < 0.1f)
             {
-                _currentHp = newHp;
+                _hpSlider.value = newHp;
                 break;
             }
 
