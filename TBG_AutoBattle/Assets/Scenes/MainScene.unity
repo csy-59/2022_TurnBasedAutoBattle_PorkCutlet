@@ -623,7 +623,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 911560665}
   _targetPosition: {fileID: 911560662}
   _damagePercentage: 0.9
-  _damageOffsetTime: 0.5
+  _damageOffsetTime: 0.12
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

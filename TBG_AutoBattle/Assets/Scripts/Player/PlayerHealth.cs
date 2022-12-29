@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         float newHp = Mathf.Clamp(_currentHp + _defence - damage, 0, _maxHp);
-        _textEffect.ShowEffect($"-{_currentHp - newHp}");
+        _textEffect.ShowEffect($"-{Mathf.RoundToInt(_currentHp - newHp)}");
         StartCoroutine(CoChangeHp(newHp));
     }
 

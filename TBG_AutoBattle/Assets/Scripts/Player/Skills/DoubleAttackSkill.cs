@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoubleAttackSkill : EffectOtherPlayerSkill
 {
     [SerializeField] private float _damagePercentage = 0.9f;
-    [SerializeField] private float _damageOffsetTime = 0.5f;
+    [SerializeField] private float _damageOffsetTime = 0.1f;
     private WaitForSeconds _waitForSecondDamage;
 
     private PlayerHealth _otherHealth;
@@ -21,13 +21,13 @@ public class DoubleAttackSkill : EffectOtherPlayerSkill
         _otherHealth = _playerMovement.OtherPlayer.GetComponent<PlayerHealth>();
         Debug.Assert(_otherHealth);
 
-        _otherHealth.TakeDamage(Mathf.RoundToInt(_playerHealth.Defence * _damagePercentage));
+        _otherHealth.TakeDamage(Mathf.RoundToInt(_playerAct.Damage * _damagePercentage));
         StartCoroutine(CoGiveDamage());
     }
 
     private IEnumerator CoGiveDamage()
     {
         yield return _waitForSecondDamage;
-        _otherHealth.TakeDamage(Mathf.RoundToInt(_playerHealth.Defence * _damagePercentage));
+        _otherHealth.TakeDamage(Mathf.RoundToInt(_playerAct.Damage * _damagePercentage));
     }
 }
