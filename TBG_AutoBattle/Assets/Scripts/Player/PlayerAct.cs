@@ -49,8 +49,8 @@ public class PlayerAct : MonoBehaviour
     {
         foreach (PlayerSkill skill in _skills)
         {
-            skill.OnSkillUsed.RemoveListener(ActBahaviour);
-            skill.OnSkillUsed.AddListener(ActBahaviour);
+            skill.OnUseSkill.RemoveListener(ActBahaviour);
+            skill.OnUseSkill.AddListener(ActBahaviour);
         }
     }
 

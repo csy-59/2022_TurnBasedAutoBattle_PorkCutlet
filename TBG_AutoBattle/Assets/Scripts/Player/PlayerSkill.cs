@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public abstract class PlayerSkill : MonoBehaviour
 {
-    public UnityEvent<bool> OnSkillUsed { get; set; } = new UnityEvent<bool>();
+    public UnityEvent<bool> OnUseSkill { get; set; } = new UnityEvent<bool>();
 
     protected PlayerAct _playerAct;
     protected PlayerHealth _playerHealth;
@@ -20,6 +20,7 @@ public abstract class PlayerSkill : MonoBehaviour
             _turn--; 
             if(_turn <= 0)
             {
+                OnUseSkill.Invoke(true);
                 UseSkill();
             }
         });

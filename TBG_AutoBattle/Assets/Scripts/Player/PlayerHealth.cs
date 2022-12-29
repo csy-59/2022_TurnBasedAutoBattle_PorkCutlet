@@ -10,7 +10,9 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("=== Basic State ===")]
     [SerializeField] private int _maxHp;
+    public int MaxHp { get => _maxHp; set => _maxHp = value; }
     [SerializeField] private int _defence;
+    public int Defence { get => _defence; set => _defence = value; }
     private float _hp;
     private float _currentHp
     {
