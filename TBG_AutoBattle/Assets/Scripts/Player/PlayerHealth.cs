@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public delegate void HpEvent();
-    public HpEvent OnDeath;
+    public UnityEvent OnDeath { get; set; } = new UnityEvent();
 
+    [Header("=== Basic State ===")]
     [SerializeField] private float _maxHp;
     [SerializeField] private float _defence;
     private float _hp;
-    public float CurrentHp
+    private float _currentHp
     {
         get => _hp;
         set
@@ -25,40 +26,48 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    [Header("=== UI & Effect ===")]
     [SerializeField] private Slider _hpSlider;
-
-    [SerializeField] private float _reducedSpeed = 0.5f;
-
-    [SerializeField] private DamageTextEffect _textEffect;
+    [SerializeField] private float _uiChangeSpeed = 0.5f;
+    [SerializeField] private HPTextEffect _textEffect;
 
     private void Awake()
     {
         _hpSlider.maxValue = _maxHp;
-        CurrentHp = _maxHp;
+        _currentHp = _maxHp;
     }
 
     public void TakeDamage(float damage)
     {
-        float newHp = Mathf.Clamp(CurrentHp + _defence - damage, 0, _maxHp);
-        _textEffect.ShowEffect(damage);
-        StartCoroutine(CoTakedDamage(newHp));
+        float newHp = Mathf.Clamp(_currentHp + _defence - damage, 0, _maxHp);
+        _textEffect.ShowEffect($"-{damage}");
+        StartCoroutine(CoChangeHp(newHp));
     }
 
-    private IEnumerator CoTakedDamage(float newHp)
+    public void RestoreHp(float restoreHp, UnityAction onHpRestore)
     {
-        float prevHp = CurrentHp;
+        float newHp = Mathf.Clamp(_currentHp + restoreHp, 0, _maxHp);
+        _textEffect.ShowEffect($"+{restoreHp}");
+        StartCoroutine(CoChangeHp(newHp, onHpRestore));
+    }
+
+    private IEnumerator CoChangeHp(float newHp, UnityAction onHpRestore = null)
+    {
+        float prevHp = _currentHp;
 
         while (true)
         {
-            CurrentHp = Mathf.Lerp(CurrentHp, newHp, _reducedSpeed * Time.deltaTime);
+            _currentHp = Mathf.Lerp(_currentHp, newHp, _uiChangeSpeed * Time.deltaTime);
 
-            if (Mathf.Abs(newHp - CurrentHp) < 0.1f)
+            if (Mathf.Abs(newHp - _currentHp) < 0.1f)
             {
-                CurrentHp = newHp;
+                _currentHp = newHp;
                 break;
             }
 
             yield return null;
         }
+
+        onHpRestore?.Invoke();
     }
 }

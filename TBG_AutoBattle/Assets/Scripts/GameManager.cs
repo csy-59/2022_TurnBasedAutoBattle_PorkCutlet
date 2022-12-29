@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private PlayerAttack[] _playerAttacks;
+    private PlayerAct[] _playerAttacks;
     private PlayerHealth[] _playerHealths;
     private bool _isGameOver;
     
     private void Awake()
     {
-        _playerAttacks = GetComponentsInChildren<PlayerAttack>();
+        _playerAttacks = GetComponentsInChildren<PlayerAct>();
         _playerHealths = GetComponentsInChildren<PlayerHealth>();
 
         PlayerSetting();
@@ -21,11 +21,11 @@ public class GameManager : MonoBehaviour
         for(int i = 0;i<_playerAttacks.Length; ++i)
         {
             _playerAttacks[i].PlayerNumber = i;
-            _playerAttacks[i].OnAttack -= OnAttack;
-            _playerAttacks[i].OnAttack += OnAttack;
+            _playerAttacks[i].OnAttack.RemoveListener(OnAttack);
+            _playerAttacks[i].OnAttack.AddListener(OnAttack);
 
-            _playerHealths[i].OnDeath -= OnPlayerDeath;
-            _playerHealths[i].OnDeath += OnPlayerDeath;
+            _playerHealths[i].OnDeath.RemoveListener(OnPlayerDeath);
+            _playerHealths[i].OnDeath.AddListener(OnPlayerDeath);
         }
     }
 
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         {
             if (_isGameOver)
             {
-                foreach(PlayerAttack _playerAttack in _playerAttacks)
+                foreach(PlayerAct _playerAttack in _playerAttacks)
                 {
                     _playerAttack.enabled = false;
                 }

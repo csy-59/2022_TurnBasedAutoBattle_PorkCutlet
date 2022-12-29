@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAct : MonoBehaviour
 {
-    public delegate void BehaviourEvent(bool value, int number);
-    public BehaviourEvent OnAttack;
+    public UnityEvent<bool, int> OnAttack { get; set; } = new UnityEvent<bool, int>();
+
+    public UnityEvent OnAct { get; set; } = new UnityEvent();
 
     public int PlayerNumber { get; set; }
 
     private delegate void MoveAction();
 
-    // 행동 속도
-    [SerializeField] private float _maxAttackCoolSpeed;
-    [SerializeField] private float _minAttackCoolSpeed;
-    private float _attackCoolTime;
-    [SerializeField] private float _attackSpeed;
+    // 턴 속도
+    [SerializeField] private float _maxActCoolSpeedㅊ;
+    [SerializeField] private float _minActCoolSpeed;
+    private float _actCoolTime;
+
+
+    [SerializeField] private float _moveSpeed;
     private IEnumerator _attackCoolCoroutine;
 
     // 기본 데미지
@@ -46,7 +50,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void SetRandomSpeed()
     {
-        _attackCoolTime = Random.Range(_minAttackCoolSpeed, _maxAttackCoolSpeed);
+        _actCoolTime = Random.Range(_minActCoolSpeed, _maxActCoolSpeedㅊ);
     }
 
     #region AttackCoolCoroutine
@@ -59,7 +63,7 @@ public class PlayerAttack : MonoBehaviour
 
         while(true)
         {
-            elapsedTime += Time.deltaTime * _attackCoolTime;
+            elapsedTime += Time.deltaTime * _actCoolTime;
             currentValue = Mathf.Lerp(0, _maxSliderValue, elapsedTime);
             _behaviourSlider.value = currentValue;
 
@@ -118,7 +122,7 @@ public class PlayerAttack : MonoBehaviour
     {
         while (true)
         {
-            Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, _attackSpeed * Time.deltaTime);
+            Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, _moveSpeed * Time.deltaTime);
 
             transform.position = newPosition;
 

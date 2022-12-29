@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DamageTextEffect : MonoBehaviour
+public class HPTextEffect : MonoBehaviour
 {
     [SerializeField] private float _effectSpeed;
 
@@ -24,10 +24,10 @@ public class DamageTextEffect : MonoBehaviour
         _targetPosition = _originalPosition + _targetPositionOffset;
     }
 
-    public void ShowEffect(float damage)
+    public void ShowEffect(string changeAmount)
     {
         StopAllCoroutines();
-        _damageText.text = $"-{damage}";
+        _damageText.text = changeAmount;
         StartCoroutine(CoStartEffect());
     }
 
