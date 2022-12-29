@@ -25,7 +25,9 @@ public class PlayerAct : MonoBehaviour
     [SerializeField] private Slider _behaviourSlider;
     private float _maxSliderValue = 1f;
 
+    // 스킬
     [SerializeField] private PlayerSkill[] _skills;
+    private int _skillCount;
 
 
     // 플레이어
@@ -58,13 +60,21 @@ public class PlayerAct : MonoBehaviour
     {
         if(value)
         {
-            OnBehaviour.Invoke(true, PlayerNumber);
+            if(_skillCount == 0)
+            {
+                OnBehaviour.Invoke(true, PlayerNumber);
+            }
+            _skillCount++;
         }
         else
         {
-            _actCoolCoroutine = CoAttackCool();
-            StartCoroutine(_actCoolCoroutine);
-            OnBehaviour.Invoke(false, PlayerNumber);
+            _skillCount--;
+            if(_skillCount == 0)
+            {
+                _actCoolCoroutine = CoAttackCool();
+                StartCoroutine(_actCoolCoroutine);
+                OnBehaviour.Invoke(false, PlayerNumber);
+            }
         }
     }
 
