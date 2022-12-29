@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
         if(isStart)
         {
-            _playerAttacks[otherNumber].StopAttackCool();
+            _playerAttacks[otherNumber].StopActCool();
         }
         else
         {
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                _playerAttacks[otherNumber].RestartAttackCool();
+                _playerAttacks[otherNumber].RestartActCool();
             }
         }
     }

@@ -8,7 +8,6 @@ public class PlayerAct : MonoBehaviour
 {
     public UnityEvent<bool, int> OnBehaviour { get; set; } = new UnityEvent<bool, int>();
     public int PlayerNumber { get; set; }
-
     public UnityEvent OnAct { get; set; } = new UnityEvent();
 
     // ≈œ º”µµ
@@ -52,6 +51,7 @@ public class PlayerAct : MonoBehaviour
     {
         if(value)
         {
+            StopActCool();
             if(_skillCount == 0)
             {
                 OnBehaviour.Invoke(true, PlayerNumber);
@@ -100,14 +100,16 @@ public class PlayerAct : MonoBehaviour
 
         _behaviourSlider.value = 0f;
         OnAct.Invoke();
+        _actCoolCoroutine = CoAttackCool();
+        StartCoroutine(_actCoolCoroutine);
     }
 
-    public void StopAttackCool()
+    public void StopActCool()
     {
         StopCoroutine(_actCoolCoroutine);
     }
 
-    public void RestartAttackCool()
+    public void RestartActCool()
     {
         StartCoroutine(_actCoolCoroutine);
     }
