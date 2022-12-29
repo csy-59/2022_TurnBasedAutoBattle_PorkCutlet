@@ -8,22 +8,24 @@ public class PlayerHealth : MonoBehaviour
     public delegate void HpEvent();
     public HpEvent OnDeath;
 
-    [SerializeField] private Slider _hpSlider;
     [SerializeField] private float _maxHp;
+    [SerializeField] private float _defence;
     private float _hp;
-    private float _currentHp
+    public float CurrentHp
     {
         get => _hp;
         set
         {
             _hp = value;
             _hpSlider.value = value;
-            if(_hp == 0)
+            if (_hp == 0)
             {
                 OnDeath.Invoke();
             }
         }
     }
+
+    [SerializeField] private Slider _hpSlider;
 
     [SerializeField] private float _reducedSpeed = 0.5f;
 
@@ -32,27 +34,27 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         _hpSlider.maxValue = _maxHp;
-        _currentHp = _maxHp;
+        CurrentHp = _maxHp;
     }
 
     public void TakeDamage(float damage)
     {
-        float newHp = Mathf.Clamp(_currentHp - damage, 0, _maxHp);
+        float newHp = Mathf.Clamp(CurrentHp + _defence - damage, 0, _maxHp);
         _textEffect.ShowEffect(damage);
         StartCoroutine(CoTakedDamage(newHp));
     }
 
     private IEnumerator CoTakedDamage(float newHp)
     {
-        float prevHp = _currentHp;
+        float prevHp = CurrentHp;
 
         while (true)
         {
-            _currentHp = Mathf.Lerp(_currentHp, newHp, _reducedSpeed * Time.deltaTime);
+            CurrentHp = Mathf.Lerp(CurrentHp, newHp, _reducedSpeed * Time.deltaTime);
 
-            if (Mathf.Abs(newHp - _currentHp) < 0.1f)
+            if (Mathf.Abs(newHp - CurrentHp) < 0.1f)
             {
-                _currentHp = newHp;
+                CurrentHp = newHp;
                 break;
             }
 
