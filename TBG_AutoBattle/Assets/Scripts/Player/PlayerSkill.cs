@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public abstract class PlayerSkill : MonoBehaviour
 {
-    public UnityEvent<bool> OnUseSkill { get; set; } = new UnityEvent<bool>();
+    public UnityEvent<bool> OnSkillUsed { get; set; } = new UnityEvent<bool>();
 
-    private PlayerAct _playerAct;
-    private PlayerHealth _playerHealth;
+    protected PlayerAct _playerAct;
+    protected PlayerHealth _playerHealth;
 
     protected int _turn;
 
-    private void Init()
+    protected void Init()
     {
         _playerAct = GetComponent<PlayerAct>();
         _playerAct.OnAct.AddListener(() => 

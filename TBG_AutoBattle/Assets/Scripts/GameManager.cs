@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
         for(int i = 0;i<_playerAttacks.Length; ++i)
         {
             _playerAttacks[i].PlayerNumber = i;
-            _playerAttacks[i].OnAttack.RemoveListener(OnAttack);
-            _playerAttacks[i].OnAttack.AddListener(OnAttack);
+            _playerAttacks[i].OnBehaviour.RemoveListener(OnAttack);
+            _playerAttacks[i].OnBehaviour.AddListener(OnAttack);
 
             _playerHealths[i].OnDeath.RemoveListener(OnPlayerDeath);
             _playerHealths[i].OnDeath.AddListener(OnPlayerDeath);

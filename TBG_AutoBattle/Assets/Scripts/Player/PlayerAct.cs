@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerAct : MonoBehaviour
 {
-    public UnityEvent<bool, int> OnAttack { get; set; } = new UnityEvent<bool, int>();
+    public UnityEvent<bool, int> OnBehaviour { get; set; } = new UnityEvent<bool, int>();
     public int PlayerNumber { get; set; }
 
     public UnityEvent OnAct { get; set; } = new UnityEvent();
@@ -15,34 +15,57 @@ public class PlayerAct : MonoBehaviour
     [SerializeField] private float _maxActCoolSpeed;
     [SerializeField] private float _minActCoolSpeed;
     private float _actCoolTime;
-
-
-    [SerializeField] private float _moveSpeed;
-    private IEnumerator _attackCoolCoroutine;
+    private IEnumerator _actCoolCoroutine;
 
     // 기본 데미지
-    [SerializeField] private Transform _targetPosition;
-    private Vector3 _originalPosition;
-    [SerializeField] private float _damage;
-
-    // 플레이어
-    [SerializeField] private Collider _stickCollider;
-    private Collider _playerCollider;
+    [SerializeField] private int _damage;
+    public int Damage { get => _damage; set => _damage = value; }
 
     // UI: 슬라이더
     [SerializeField] private Slider _behaviourSlider;
     private float _maxSliderValue = 1f;
 
+    [SerializeField] private PlayerSkill[] _skills;
+
+
+    // 플레이어
+    [SerializeField] private Collider _stickCollider;
+    private Collider _playerCollider;
+    [SerializeField] private Transform _targetPosition;
+    private Vector3 _originalPosition;
+    [SerializeField] private float _moveSpeed;
+
     private void Awake()
     {
-        _playerCollider = GetComponent<Collider>();
-
-        _originalPosition = transform.position;
-        
         SetRandomSpeed();
 
-        _attackCoolCoroutine = CoAttackCool();
-        StartCoroutine(_attackCoolCoroutine);
+        ConnectWithSkill();
+
+        _actCoolCoroutine = CoAttackCool();
+        StartCoroutine(_actCoolCoroutine);
+    }
+
+    private void ConnectWithSkill()
+    {
+        foreach (PlayerSkill skill in _skills)
+        {
+            skill.OnSkillUsed.RemoveListener(ActBahaviour);
+            skill.OnSkillUsed.AddListener(ActBahaviour);
+        }
+    }
+
+    private void ActBahaviour(bool value)
+    {
+        if(value)
+        {
+            OnBehaviour.Invoke(true, PlayerNumber);
+        }
+        else
+        {
+            _actCoolCoroutine = CoAttackCool();
+            StartCoroutine(_actCoolCoroutine);
+            OnBehaviour.Invoke(false, PlayerNumber);
+        }
     }
 
     private void SetRandomSpeed()
@@ -73,17 +96,18 @@ public class PlayerAct : MonoBehaviour
             yield return null;
         }
 
-        Attack();
+        OnAct.Invoke();
+        //Attack();
     }
 
     public void StopAttackCool()
     {
-        StopCoroutine(_attackCoolCoroutine);
+        StopCoroutine(_actCoolCoroutine);
     }
 
     public void RestartAttackCool()
     {
-        StartCoroutine(_attackCoolCoroutine);
+        StartCoroutine(_actCoolCoroutine);
     }
     #endregion
 
@@ -97,9 +121,9 @@ public class PlayerAct : MonoBehaviour
                 StartCoroutine(CoMoveToPosition(_originalPosition,
                     () =>
                     {
-                        _attackCoolCoroutine = CoAttackCool();
-                        StartCoroutine(_attackCoolCoroutine);
-                        OnAttack.Invoke(false, PlayerNumber);
+                        _actCoolCoroutine = CoAttackCool();
+                        StartCoroutine(_actCoolCoroutine);
+                        OnBehaviour.Invoke(false, PlayerNumber);
                         _stickCollider.enabled = false;
                         _playerCollider.enabled = true;
                     }
@@ -112,7 +136,7 @@ public class PlayerAct : MonoBehaviour
     {
         _playerCollider.enabled = false;
         _stickCollider.enabled = true;
-        OnAttack.Invoke(true, PlayerNumber);
+        OnBehaviour.Invoke(true, PlayerNumber);
     }
 
     private IEnumerator CoMoveToPosition(Vector3 targetPosition, UnityAction afterMoveAction)
@@ -145,7 +169,6 @@ public class PlayerAct : MonoBehaviour
             _otherHealth.TakeDamage(_damage);
         }
     }
-
 
     private void OnDisable()
     {
