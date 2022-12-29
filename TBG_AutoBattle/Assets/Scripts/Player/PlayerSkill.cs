@@ -20,7 +20,7 @@ public abstract class PlayerSkill : MonoBehaviour
 
         _playerAct = GetComponent<PlayerAct>();
         _playerAct.OnAct.AddListener(() => 
-        { 
+        {
             _turn--; 
             if(_turn <= 0)
             {
@@ -38,7 +38,7 @@ public abstract class PlayerSkill : MonoBehaviour
     }
     private void ResetTurn(bool value)
     {
-        if(!value)
+        if(value)
         {
             ResetTurn();
         }

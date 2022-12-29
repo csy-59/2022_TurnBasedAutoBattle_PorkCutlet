@@ -274,7 +274,7 @@ MonoBehaviour:
   _maxHp: 100
   _defence: 0
   _hpSlider: {fileID: 5292475706239711672}
-  _uiChangeSpeed: 0.5
+  _uiChangeSpeed: 5
   _textEffect: {fileID: 9048727180877013823}
 --- !u!114 &1487502790614411247
 MonoBehaviour:

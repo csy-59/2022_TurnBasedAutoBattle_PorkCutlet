@@ -99,9 +99,9 @@ public class PlayerAct : MonoBehaviour
         }
 
         _behaviourSlider.value = 0f;
-        OnAct.Invoke();
         _actCoolCoroutine = CoAttackCool();
         StartCoroutine(_actCoolCoroutine);
+        OnAct.Invoke();
     }
 
     public void StopActCool()
