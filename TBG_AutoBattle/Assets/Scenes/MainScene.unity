@@ -495,20 +495,28 @@ PrefabInstance:
       value: Player (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _damage
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _attackSpeed
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _skills.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _skills.Array.data[0]
       value: 
       objectReference: {fileID: 911560667}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _skills.Array.data[1]
+      value: 
+      objectReference: {fileID: 911560674}
     - target: {fileID: 5292475705913454629, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _defence
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454633, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -767,7 +775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _damage
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _attackSpeed
@@ -783,12 +791,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _skills.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _skills.Array.data[0]
       value: 
       objectReference: {fileID: 5292475705524468608}
+    - target: {fileID: 5292475705913454626, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
+      propertyPath: _skills.Array.data[1]
+      value: 
+      objectReference: {fileID: 5292475705524468617}
     - target: {fileID: 5292475705913454629, guid: 640fab48fd91c6a4ca2f1bbbf0bfb34e, type: 3}
       propertyPath: _defence
       value: 10
