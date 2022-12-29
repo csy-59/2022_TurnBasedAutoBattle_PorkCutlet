@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class EffectOtherPlayerSkill : PlayerSkill
 {
@@ -20,6 +21,14 @@ public abstract class EffectOtherPlayerSkill : PlayerSkill
 
     protected override void UseSkill()
     {
+        if(_playerMovement.IsMoving)
+        {
+            _playerMovement.OnMovingOver.RemoveListener(UseSkill);
+            _playerMovement.OnMovingOver.AddListener(UseSkill);
+            return;
+        }
+
+        _playerMovement.IsMoving = true;
         Attack();
     }
 
@@ -52,6 +61,7 @@ public abstract class EffectOtherPlayerSkill : PlayerSkill
     {
         _stickCollider.enabled = false;
         _playerCollider.enabled = true;
+        _playerMovement.IsMoving = false;
         OnUseSkill.Invoke(false);
     }
 

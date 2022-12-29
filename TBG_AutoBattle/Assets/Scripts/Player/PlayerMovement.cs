@@ -8,6 +8,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     public GameObject OtherPlayer { get; set; }
 
+    private bool _isMoving = false;
+    public bool IsMoving 
+    { 
+        get => _isMoving; 
+        set 
+        {
+            _isMoving = value;
+            if (!value)
+            {
+                OnMovingOver.Invoke();
+                OnMovingOver.RemoveAllListeners();
+            }
+        } 
+    }
+    public UnityEvent OnMovingOver { get; set; } = new UnityEvent();
+
     public void MoveToPosition(Vector3 targetPosition, UnityAction afterMoveAction)
     {
         StartCoroutine(CoMoveToPosition(targetPosition, afterMoveAction));
