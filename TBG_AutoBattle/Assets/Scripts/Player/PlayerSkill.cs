@@ -13,7 +13,7 @@ public abstract class PlayerSkill : MonoBehaviour
     [SerializeField] private int _maxTurn;
     protected int _turn;
 
-    protected void Init()
+    protected virtual void Init()
     {
         ResetTurn();
         OnUseSkill.AddListener(ResetTurn);
